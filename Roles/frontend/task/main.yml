@@ -1,7 +1,6 @@
-   
-   - name: Install Nginx
-     become: yes
-     apt:
+    - name: Install Nginx
+      become: yes
+      apt:
         name: nginx
         update_cache: yes
         state: present
@@ -55,4 +54,4 @@
         name: nginx
         enabled: yes
 
-   
+
