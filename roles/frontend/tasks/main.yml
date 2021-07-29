@@ -34,20 +34,18 @@
     dest: /var/www/html/frontend
     remote_src: yes
 
- - name: Update Todoshop Config file
+- name: Update Todoshop Config file
    become: yes
    template:
      src: todo.conf
      dest: /etc/nginx/sites-enabled/todo.conf
    notify: Restart Nginx
 
-
-
- - name: restart nginx
-   become: yes
-   systemd:
-     state: restarted
-     name: nginx
-     enabled: yes
+- name: restart nginx
+  become: yes
+  systemd:
+    state: restarted
+    name: nginx
+    enabled: yes
 
 
