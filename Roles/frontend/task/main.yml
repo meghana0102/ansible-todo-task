@@ -1,7 +1,7 @@
    
    - name: Install Nginx
      become: yes
-      apt:
+     apt:
         name: nginx
         update_cache: yes
         state: present
