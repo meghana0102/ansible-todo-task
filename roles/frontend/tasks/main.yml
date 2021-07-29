@@ -1,11 +1,11 @@
-    - name: Install Nginx
-      become: yes
-      apt:
-        name: nginx
-        update_cache: yes
-        state: present
+- name: Install Nginx
+    become: yes
+    apt:
+      name: nginx
+      update_cache: yes
+      state: present
 
-    - name: Download artifact from nexus
+   - name: Download artifact from nexus
       get_url:
         url: http://172.31.4.60:8081/repository/frontend/frontend-{{APP_VERSION}}.zip
         dest: /tmp/frontend.zip
@@ -40,8 +40,8 @@
         src: todo.conf
         dest: /etc/nginx/sites-enabled/todo.conf
       notify: Restart Nginx
-      
-  
+
+
 
     - name: restart nginx
       become: yes
