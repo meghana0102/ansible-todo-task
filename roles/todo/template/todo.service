@@ -7,6 +7,5 @@ Environment=TODOS_API_PORT=8080
 ExecStart=/bin/node /home/ubuntu/todo/server.js
 Restart=on-failure
 SyslogIdentifier=todo
-
 [Install]
 WantedBy=multi-user.target
