@@ -1,16 +1,16 @@
 - name: Install Nginx
-    become: yes
-    apt:
-      name: nginx
-      update_cache: yes
-      state: present
+      become: yes
+      apt:
+        name: nginx
+        update_cache: yes
+        state: present
 
     - name: Download artifact from nexus
       get_url:
-        url: http://172.31.4.60:8081/repository/frontend/frontend-{{APP_VERSION}}.zip
+        url: http://172.31.6.66:8081/repository/frontend/frontend-{{APP_VERSION}}.zip
         dest: /tmp/frontend.zip
         username: admin
-        password: Mega@3103
+        password: kavya
 
     - name: Delete the default content
       become: yes
@@ -40,7 +40,12 @@
         src: todo.conf
         dest: /etc/nginx/sites-enabled/todo.conf
       notify: Restart Nginx
-
+      
+    - name: Update Nginx Main Config
+      become: yes
+      template:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
 
     - name: restart nginx
       become: yes
@@ -49,4 +54,19 @@
         name: nginx
         enabled: yes
 
-  
+    - name: Install Node Exporter Prometheus Monitoring
+      include_role:
+        name: common
+        tasks_from: node_exporter
+
+
+    - name: Install Filebeat Monitoring
+      include_role:
+        name: common
+        tasks_from: filebeat
+      vars:
+        IS_STRUCTURED: false
+        LOG_FILES:
+          - {file: "/var/log/nginx/access.log", type: "nginx_access"}
+          - {file: "/var/log/nginx/error.log", type: "nginx_error"}
+
