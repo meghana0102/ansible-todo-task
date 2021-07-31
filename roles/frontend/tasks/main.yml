@@ -40,8 +40,7 @@
       src: todo.conf
       dest: /etc/nginx/sites-enabled/todo.conf
     notify: Restart Nginx
-    
-  
+     
   - name: restart nginx
     become: yes
     systemd:
